@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}">
+{% endblock %}
+
+{% block navbar %} {% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+    
+        <p>
+            {{ form.name.label }}
+            {{ form.name(size=32) }}
+        </p>
+    
+        <p>
+            {{ form.description.label }}
+            {{ form.description(rows=5, cols=40) }}
+        </p>
+    
+        <p>
+            {{ form.priority.label }}
+            {{ form.priority() }}
+        </p>
+    
+        <p>
+            {{ form.submit() }}
+        </p>
+        
+    </form>
+</div>
+{% endblock %}

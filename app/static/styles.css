@@ -1,0 +1,144 @@
+/* Flash messages styling */
+.flash-messages {
+    background-color: #f8d7da;  /* Light red background */
+    color: #721c24;  /* Dark red text */
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    list-style-type: none;
+    margin: 0;
+    margin-top: 20px; /* Adds space between messages and navbar */
+    width: 100%;
+    max-width: 800px; /* Prevents flash messages from being too wide */
+    margin-left: auto;
+    margin-right: auto; /* Centers the flash messages */
+    z-index: 9999;  /* Ensure flash messages are above other content */
+}
+
+.flash-messages li {
+    margin-bottom: 2px;
+}
+
+/* Main content styling */
+.main-content {
+    margin-top: 40px; /* Adds space below the navbar/flash messages */
+    padding: 0 20px;  /* Ensures the content doesn't touch the edges */
+}
+
+/* Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  /* Modern font */
+    background-color: #f4f6f9;  /* Soft background color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar Styling */
+.navbar-container {
+    background-color: #2c3e50;  /* Darker background for navbar */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;  /* Ensures space between left and right items */
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left {
+    display: flex;
+    justify-content: flex-start; /* Ensures the left links stay on the left */
+    flex-grow: 1; /* Allow the left side to take up available space */
+}
+
+.navbar-right {
+    display: flex;
+    justify-content: flex-end; /* Align the right links to the right */
+    flex-shrink: 0; /* Prevent shrinking of right section */
+    margin-left: auto; /* Ensures the logout stays on the right */
+}
+
+.navbar-left ul, .navbar-right ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-left li, .navbar-right li {
+    margin-right: 20px;
+}
+
+.navbar-left a, .navbar-right a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.navbar-left a:hover, .navbar-right a:hover {
+    color: #3498db;  /* Lighter blue when hovering */
+    transition: color 0.3s ease;
+}
+
+/* Table Styling */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;  /* Adds space above the table */
+    border: 1px solid #dcdcdc;
+    background-color: white;
+}
+
+.user-table th,
+.user-table td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd; /* Adds light borders between rows */
+}
+
+.user-table th {
+    background-color: #f2f2f2; /* Light grey background for headers */
+    font-weight: 600;
+}
+
+.user-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating row colors */
+}
+
+.user-table tr:hover {
+    background-color: #f1f1f1;  /* Slight hover effect for rows */
+    cursor: pointer;
+}
+
+.user-table td button.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.user-table td button.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Button Styling */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #3498db;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}

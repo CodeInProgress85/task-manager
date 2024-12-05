@@ -1,0 +1,110 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Use the same font style */
+    background-color: #f4f6f9;  /* Soft background color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Style for the profile header */
+.profile-header {
+    display: flex;
+    justify-content: space-between; /* Aligns buttons on the left and filter form on the right */
+    align-items: center;
+    margin-bottom: 20px; /* Adds space below the header */
+}
+
+/* Edit Profile Button */
+.profile-header a button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.profile-header a button:hover {
+    background-color: #2980b9;
+}
+
+/* Filter Form Styling */
+.filter-form {
+    display: flex;
+    align-items: center;
+}
+
+.filter-form label {
+    margin-right: 10px;
+}
+
+.filter-form select {
+    padding: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.filter-form button {
+    padding: 6px 12px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.filter-form button:hover {
+    background-color: #27ae60;
+}
+
+/* Table Styling */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;  /* Adds space above the table */
+    border: 1px solid #dcdcdc;
+    background-color: white;
+}
+
+.user-table th,
+.user-table td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd; /* Adds light borders between rows */
+}
+
+.user-table th {
+    background-color: #f2f2f2; /* Light grey background for headers */
+    font-weight: 600;
+}
+
+.user-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating row colors */
+}
+
+.user-table tr:hover {
+    background-color: #f1f1f1;  /* Slight hover effect for rows */
+    cursor: pointer;
+}
+
+.user-table td button.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.user-table td button.delete-btn:hover {
+    background-color: #c0392b;
+}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Edit Task</h1>
+
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}  <!-- This is important to include CSRF token -->
+
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}
+            {% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(cols=32, rows=4) }}
+            {% for error in form.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.status.label }}<br>
+            {{ form.status() }}
+            {% for error in form.status.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.priority.label }}<br>
+            {{ form.priority() }}
+            {% for error in form.priority.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.due_date.label }}<br>
+            {{ form.due_date() }}
+            {% for error in form.due_date.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            <button type="submit">Update Task</button>
+        </p>
+    </form>
+
+    <footer class="footer">
+        <p>
+            <a href="{{ url_for('dashboard') }}">Cancel</a>
+        </p>
+    </footer>
+</div>
+{% endblock %}

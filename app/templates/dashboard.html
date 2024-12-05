@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<div class="main-content">
+    <a href="{{ url_for('add_task') }}">
+        <button>Add Task</button>
+    </a>
+
+    {%if tasks%}
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.status.name.capitalize() }}</td>
+                <td>{{ task.priority.name.capitalize() }}</td>
+                <td>{{ task.due_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <a href="{{ url_for('edit_task', task_id=task.id) }}">Edit</a> | <a href="{{ url_for('delete_task', task_id=task.id) }}" >Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Click on the button to add a task.</p>
+    {% endif %}
+</div>
+{% endblock %}

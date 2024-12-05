@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    {% block head %} {% endblock %}
+</head>
+
+<body>
+    {% block navbar%}
+    <div class="navbar-container">
+        {% if current_user.is_authenticated %}
+        <div class="navbar-left">
+            <ul>
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            </ul>
+        </div>
+        
+        <div class="navbar-right">
+            <ul>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div> {% endif %}
+    </div>
+    {% endblock %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flash-messages">
+        {% for message in messages %}
+        <li>{{ message }}</li> {% endfor %}
+    </ul> {% endif %} {% endwith %}
+
+    <div class="main-content">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+
+</html>
