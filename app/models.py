@@ -1,15 +1,15 @@
-from app import db, login
 from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 from enum import Enum
-from werkzeug.security import check_password_hash, generate_password_hash
+from app import db, login
 
 # User loader function for Flask-Login
 @login.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
-# User Model
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -21,38 +21,48 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f"<User {self.username}>"
-    
+
     def set_password(self, password):
+        """Set the password after hashing it"""
         self.password = generate_password_hash(password)
 
     def verify_password(self, password):
+        """Verify if the given password matches the stored hashed password"""
         return check_password_hash(self.password, password)
-    
 
-# Enum for Task Status
+
+# Enum class for task status
 class TaskStatus(Enum):
     PENDING = "Pending"
     COMPLETED = "Complete"
 
 
-# Enum for Task Priority
+# Enum class for task priority
 class TaskPriority(Enum):
     LOW = "Low"
     MEDIUM = "Medium"
     HIGH = "High"
 
 
-# Task Model
-class Task(db.Model):  # Use Task instead of Tasks (for consistency)
+class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32), nullable=False)  # Task name is required
-    description = db.Column(db.String(128), nullable=True)  # Description is optional
-    status = db.Column(db.Enum(TaskStatus), default=TaskStatus.PENDING, nullable=False)  # Default is 'Pending'
-    priority = db.Column(db.Enum(TaskPriority), default=TaskPriority.MEDIUM, nullable=False)  # Default is 'Medium'
-    due_date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  # Default is current UTC time
+    name = db.Column(db.String(32), nullable=False)
+    description = db.Column(db.String(128), nullable=True)
+    status = db.Column(db.Enum(TaskStatus),
+                       default=TaskStatus.PENDING,
+                       nullable=False)
+    priority = db.Column(db.Enum(TaskPriority),
+                         default=TaskPriority.MEDIUM,
+                         nullable=False)
+    due_date = db.Column(db.DateTime,
+                         default=datetime.utcnow,
+                         nullable=False)
 
-    # Foreign Key: Relates the task to a user
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Foreign key to User table
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('user.id'),
+                        nullable=False)
 
     def __repr__(self):
-        return f"<Task {self.name}, Status {self.status}, Priority {self.priority}>"
+        return (f"<Task {self.name}, "
+                f"Status {self.status}, "
+                f"Priority {self.priority}>")

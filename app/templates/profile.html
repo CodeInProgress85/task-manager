@@ -7,14 +7,14 @@
 {% block content %}
 <div class="profile-header">
     <!-- Edit Profile Button on the left -->
-    <a href="{{url_for('edit_profile')}}">
-        <button>Edit Profile</button>
+    <a href="{{ url_for('edit_profile') }}" role="button" aria-label="Edit Profile">
+        <button type="button">Edit Profile</button>
     </a>
 
     <!-- Filter Section (Drop-down and Filter button) on the right -->
     <form action="{{ url_for('profile') }}" method="get" class="filter-form">
-        <label for="priority-filter">Filter</label>
-        <select name="priority-filter" id="priority-filter">
+        <label for="priority-filter">Filter by priority</label>
+        <select name="priority-filter" id="priority-filter" aria-label="Priority filter">
             <option value="all" {% if filter_priority == "all" %}selected{% endif %}>All</option>
             <option value="low" {% if filter_priority == "low" %}selected{% endif %}>Low</option>
             <option value="medium" {% if filter_priority == "medium" %}selected{% endif %}>Medium</option>
@@ -25,56 +25,53 @@
     </form>
 </div>
 
+<h3 id="pending-tasks-header">Pending Tasks</h3>
+<table class="user-table" aria-labelledby="pending-tasks-header">
+    <thead>
+        <tr>
+            <th scope="col">Task Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in pending_tasks %}
+        <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.due_date }}</td>
+            <td>{{ task.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3 id="completed-tasks-header">Completed Tasks</h3>
+<table class="user-table" aria-labelledby="completed-tasks-header">
+    <thead>
+        <tr>
+            <th scope="col">Task Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Completed On</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in completed_tasks %}
+        <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.due_date }}</td>
+            <td>{{ task.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 <h3>User Info</h3>
 
 <p>Username: {{ user.username }}</p>
 <p>E-mail: {{ user.email }}</p>
 
-<h3>Pending Tasks</h3>
-{% if pending_tasks %}
-    <table class="user-table">
-        <thead>
-            <tr>
-                <th>Task Name</th>
-                <th>Description</th>
-                <th>Due Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in pending_tasks %}
-            <tr>
-                <td>{{ task.name }}</td>
-                <td>{{ task.description }}</td>
-                <td>{{ task.due_date }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No pending tasks.</p>
-{% endif %}
-
-<h3>Completed Tasks</h3>
-{% if completed_tasks %}
-    <table class="user-table">
-        <thead>
-            <tr>
-                <th>Task Name</th>
-                <th>Description</th>
-                <th>Completed On</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in completed_tasks %}
-            <tr>
-                <td>{{ task.name }}</td>
-                <td>{{ task.description }}</td>
-                <td>{{ task.due_date }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No completed tasks.</p>
-{% endif %}
 {% endblock %}

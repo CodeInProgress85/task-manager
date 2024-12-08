@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block navbar %} {% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Oops! We can't find the page</h1>
+   
+    <p>Please check the URL again. If the URL is correct, the page may have been moved or deleted.</p>
+    
+    <p><a href="{{ url_for('dashboard') }}">Go back to the dashboard</a></p>
+</div>
+{% endblock %}

@@ -4,32 +4,33 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}">
 {% endblock %}
 
-{% block navbar %} {% endblock %}
+{% block navbar %}
+<!-- Add navbar content here if needed -->
+{% endblock %}
 
 {% block content %}
 <div class="form-container">
     <form action="" method="post">
         {{ form.hidden_tag() }}
     
-        <p>
-            {{ form.name.label }}
-            {{ form.name(size=32) }}
-        </p>
+        <div class="form-group">
+            <label for="name">{{ form.name.label }}</label>
+            {{ form.name(id="name", size=32) }}
+        </div>
     
-        <p>
-            {{ form.description.label }}
-            {{ form.description(rows=5, cols=40) }}
-        </p>
+        <div class="form-group">
+            <label for="description">{{ form.description.label }}</label>
+            {{ form.description(id="description", rows=5, cols=40) }}
+        </div>
     
-        <p>
-            {{ form.priority.label }}
-            {{ form.priority() }}
-        </p>
+        <div class="form-group">
+            <label for="priority">{{ form.priority.label }}</label>
+            {{ form.priority(id="priority") }}
+        </div>
     
-        <p>
-            {{ form.submit() }}
-        </p>
-        
+        <div class="form-group">
+            <button type="submit">Add Task</button>
+        </div>
     </form>
 </div>
 {% endblock %}

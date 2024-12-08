@@ -1,7 +1,8 @@
-from .models import User, TaskPriority, TaskStatus
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, DateTimeField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from .models import User, TaskPriority, TaskStatus
+
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
@@ -13,36 +14,57 @@ class RegistrationForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
     email = StringField("Email", validators=[Email(), DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
-    confirm_password = PasswordField("Password", validators=[EqualTo("password"), DataRequired()])
+    confirm_password = PasswordField("Confirm Password", 
+        validators=[EqualTo("password"), DataRequired()])
     submit = SubmitField("Sign Up")
 
     def validate_username(self, username):
+        """Ensure the username is not already taken."""
         user = User.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError("Please choose a different username")
-        
+        if user:
+            raise ValidationError("Username is already taken. Please choose a different one.")
 
     def validate_email(self, email):
-        email = User.query.filter_by(email=email.data).first()
-        if email is not None:
-            raise ValidationError("Please choose a different email address")
-        
+        """Ensure the email is not already registered."""
+        existing_email = User.query.filter_by(email=email.data).first()
+        if existing_email:
+            raise ValidationError("Email is already registered. Please choose a different one.")
+
 
 class EditProfileForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    submit = SubmitField("Edit")
+    submit = SubmitField("Save Changes")
+
 
 class NewTaskForm(FlaskForm):
     name = StringField("Task Name", validators=[DataRequired()])
     description = TextAreaField("Description")
-    priority = SelectField("Priority", choices=[(priority.name, priority.value) for priority in TaskPriority], validators=[DataRequired()])
+    priority = SelectField(
+        "Priority", 
+        choices=[(priority.name, priority.value) for priority in TaskPriority], 
+        validators=[DataRequired()]
+    )
     submit = SubmitField("Add Task")
 
 
 class EditTaskForm(FlaskForm):
-    name = StringField('Task Name', validators=[DataRequired()])
-    description = TextAreaField('Description')
-    status = SelectField('Status', choices=[(status.name, status.value) for status in TaskStatus], validators=[DataRequired()])
-    priority = SelectField('Priority', choices=[(priority.name, priority.value) for priority in TaskPriority], validators=[DataRequired()])
-    due_date = DateTimeField('Due Date', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
+    name = StringField("Task Name", validators=[DataRequired()])
+    description = TextAreaField("Description")
+    status = SelectField(
+        "Status", 
+        choices=[(status.name, status.value) for status in TaskStatus], 
+        validators=[DataRequired()]
+    )
+    priority = SelectField(
+        "Priority", 
+        choices=[(priority.name, priority.value) for priority in TaskPriority], 
+        validators=[DataRequired()]
+    )
+    due_date = DateTimeField(
+        "Due Date", 
+        format='%Y-%m-%dT%H:%M', 
+        validators=[DataRequired()],
+        render_kw={"placeholder": "YYYY-MM-DD HH:MM"}
+    )
+    submit = SubmitField("Save Changes")

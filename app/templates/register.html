@@ -8,42 +8,50 @@
 
 {% block content %} 
 <div class="form-container">
-
-    <h1>Sign up</h1>
-
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
 
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span> {% endfor %}
-        </p>
+        <div class="form-group">
+            <p>
+                <label for="username">{{ form.username.label }}</label>
+                {{ form.username(size=32, id="username", aria_required="true") }}
+                {% for error in form.username.errors %}
+                <span id="username-error" class="error-message">{{ error }}</span> {% endfor %}
+            </p>
+        </div>
+        
+        <div class="form-group">
+            <p>
+                <label for="email">{{ form.email.label }}</label>
+                {{ form.email(size=32, id="email", aria_required="true") }}
+                {% for error in form.email.errors %}
+                <span id="email-error" class="error-message">{{ error }}</span> {% endfor %}
+            </p>
+        </div>
+        
+        <div class="form-group">
+            <p>
+                <label for="password">{{ form.password.label }}</label>
+                {{ form.password(size=32, id="password", aria_required="true") }}
+                {% for error in form.password.errors %}
+                <span id="password-error" class="error-message">{{ error }}</span> {% endfor %}
+            </p>
+        </div>
+        
+        <div class="form-group">
+            <p>
+                <label for="confirm_password">{{ form.confirm_password.label }}</label>
+                {{ form.confirm_password(size=32, id="confirm_password", aria_required="true") }}
+                {% for error in form.confirm_password.errors %}
+                <span id="confirm_password-error" class="error-message">{{ error }}</span> {% endfor %}
+            </p>
+        </div>
+        
+        <div class="form-group">
 
+        </div>
         <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span> {% endfor %}
-        </p>
-
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span> {% endfor %}
-        </p>
-
-        <p>
-            {{ form.confirm_password.label }}<br>
-            {{ form.confirm_password(size=32) }}
-            {% for error in form.confirm_password.errors %}
-            <span style="color: red;">[{{ error }}]</span> {% endfor %}
-        </p>
-
-        <p>
-            {{ form.submit() }}
+            <button type="submit">Sign Up</button>
         </p>
     </form>
 

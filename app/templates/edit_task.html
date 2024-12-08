@@ -13,49 +13,59 @@
     <form method="POST" novalidate>
         {{ form.hidden_tag() }}  <!-- This is important to include CSRF token -->
 
-        <p>
-            {{ form.name.label }}<br>
-            {{ form.name(size=32) }}
-            {% for error in form.name.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        <div class="form-group">
+            <p>
+                <label for="name">{{ form.name.label }}</label>
+                {{ form.name(id="name", size=32, aria_required="true") }}
+                {% for error in form.name.errors %}
+                    <span id="name-error" class="error-message">{{ error }}</span>
+                {% endfor %}
+            </p>
+        </div>
 
-        <p>
-            {{ form.description.label }}<br>
-            {{ form.description(cols=32, rows=4) }}
-            {% for error in form.description.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        <div class="form-group">
+            <p>
+                <label for="description">{{ form.description.label }}</label>
+                {{ form.description(id="description", cols=32, rows=4, aria_required="true") }}
+                {% for error in form.description.errors %}
+                    <span id="description-error" class="error-message">{{ error }}</span>
+                {% endfor %}
+            </p>
+        </div>
 
-        <p>
-            {{ form.status.label }}<br>
-            {{ form.status() }}
-            {% for error in form.status.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        <div class="form-group">
+            <p>
+                <label for="status">{{ form.status.label }}</label>
+                {{ form.status(id="status", aria_required="true") }}
+                {% for error in form.status.errors %}
+                    <span id="status-error" class="error-message">{{ error }}</span>
+                {% endfor %}
+            </p>
+        </div>
 
-        <p>
-            {{ form.priority.label }}<br>
-            {{ form.priority() }}
-            {% for error in form.priority.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        <div class="form-group">
+            <p>
+                <label for="priority">{{ form.priority.label }}</label>
+                {{ form.priority(id="priority", aria_required="true") }}
+                {% for error in form.priority.errors %}
+                    <span id="priority-error" class="error-message">{{ error }}</span>
+                {% endfor %}
+            </p>
+        </div>
 
-        <p>
-            {{ form.due_date.label }}<br>
-            {{ form.due_date() }}
-            {% for error in form.due_date.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        <div class="form-group">
+            <p>
+                <label for="due_date">{{ form.due_date.label }}</label>
+                {{ form.due_date(id="due_date", aria_required="true") }}
+                {% for error in form.due_date.errors %}
+                    <span id="due_date-error" class="error-message">{{ error }}</span>
+                {% endfor %}
+            </p>
+        </div>
 
-        <p>
+        <div class="form-group">
             <button type="submit">Update Task</button>
-        </p>
+        </div>
     </form>
 
     <footer class="footer">

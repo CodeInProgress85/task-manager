@@ -22,4 +22,4 @@ login.login_view = "login"
 def unauthorized():
     return redirect(url_for('login', next=request.url))
 
-from app import routes, models
+from app import routes, models, errors

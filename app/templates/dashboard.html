@@ -2,9 +2,11 @@
 
 {% block content %} 
 <div class="main-content">
-    <a href="{{ url_for('add_task') }}">
-        <button>Add Task</button>
-    </a>
+    <div class="add-task-action">
+        <a href="{{ url_for('add_task') }}">
+            <button class="transition-bg">Add Task</button>
+        </a>
+    </div>
 
     {%if tasks%}
     <table class="user-table">
@@ -27,7 +29,7 @@
                 <td>{{ task.priority.name.capitalize() }}</td>
                 <td>{{ task.due_date.strftime('%Y-%m-%d %H:%M') }}</td>
                 <td>
-                    <a href="{{ url_for('edit_task', task_id=task.id) }}">Edit</a> | <a href="{{ url_for('delete_task', task_id=task.id) }}" >Delete</a>
+                    <a href="{{ url_for('edit_task', task_id=task.id) }}" class="transition-bg">Edit</a> | <a href="{{ url_for('delete_task', task_id=task.id) }}" class="transition-bg" onclick="return confirm('Are you sure you want to delete this task?')">Delete</a>
                 </td>
             </tr>
             {% endfor %}

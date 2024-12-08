@@ -5,8 +5,12 @@ from flask import render_template, flash, redirect, url_for, request, make_respo
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.exceptions import NotFound
 
+
 @app.route("/", methods=["get", "post"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard"))
+    
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -28,6 +32,9 @@ def login():
 
 @app.route("/register", methods=["get", "post"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard"))
+
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
@@ -135,16 +142,31 @@ def profile():
 
     return render_template("profile.html", title="Profile", user=current_user, pending_tasks=pending_tasks, completed_tasks=completed_tasks, filter_priority=filter_priority)
 
-@app.route("/edit_profile", methods=["get", "post"])
+@app.route("/edit-profile", methods=["get", "post"])
 def edit_profile():
     form = EditProfileForm()
+    
     if form.validate_on_submit():
-        current_user.username = form.username.data
+        new_username = form.username.data
+        existing_user = User.query.filter_by(username=new_username).first()
+
+        if existing_user and existing_user.id != current_user.id:
+            form.username.errors.append("This username is already taken. Please choose another one.")
+            return render_template("edit_profile.html", form=form)
+
+        current_user.username = new_username
         current_user.email = form.email.data
         
         db.session.commit()
 
-        return redirect(url_for("admin"))
+        if current_user.username == "admin":
+            return redirect(url_for("admin"))
+        else:
+            return redirect(url_for("profile"))
+        
+    # Pre-filled data
+    form.username.data = current_user.username
+    form.email.data = current_user.email
     
     response = make_response(render_template("edit_profile.html", title = "Edit Profile", form=form))
     response.headers["Cache-Control"] = "no-store"

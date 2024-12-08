@@ -1,3 +1,7 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 /* Flash messages styling */
 .flash-messages {
     background-color: #f8d7da;  /* Light red background */
@@ -7,11 +11,10 @@
     list-style-type: none;
     margin: 0;
     margin-top: 20px; /* Adds space between messages and navbar */
-    width: 100%;
-    max-width: 800px; /* Prevents flash messages from being too wide */
-    margin-left: auto;
-    margin-right: auto; /* Centers the flash messages */
-    z-index: 9999;  /* Ensure flash messages are above other content */
+    width: auto;  /* Automatically adjusts the width based on content */
+    max-width: 90%; /* Prevents flash messages from being too wide */
+    margin: 0 auto; /* Centers the flash messages */
+    text-align: center;
 }
 
 .flash-messages li {
@@ -120,7 +123,6 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.3s ease;
 }
 
 .user-table td button.delete-btn:hover {
@@ -136,9 +138,12 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #2980b9;
+}
+
+.transition-bg{
+    transition: background-color 0.3s ease;
 }
