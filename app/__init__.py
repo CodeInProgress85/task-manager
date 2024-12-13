@@ -1,4 +1,4 @@
-from flask import Flask, redirect, flash, url_for, request
+from flask import Flask, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
